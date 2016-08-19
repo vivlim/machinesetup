@@ -1,0 +1,17 @@
+packagename,category,params
+pt,dev,
+emacs64,dev,
+git,dev,"""/GitAndUnixToolsOnPath"""
+everything,client,
+nodejs,dev,
+gitextensions,dev,
+kdiff3,dev,
+7zip,client,
+git-credential-manager-for-windows,dev,
+windirstat,client,
+win32-openssh,client,
+sysinternals,dev,
+vim,client,
+ctags,dev,
+sudo,client,
+heatseeker,client,
