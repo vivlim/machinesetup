@@ -25,3 +25,13 @@ if ($host.Name -eq "ConsoleHost"){
 
     echo "Profile loaded."
 }
+
+function which ($commandName) {
+    $command = Get-Command $commandName -ErrorAction SilentlyContinue
+    if (!$command)
+    {
+        Write-Host "Couldn't find a command named $commandName." -ForegroundColor Red
+        return
+    }
+    return $command.Source
+}
