@@ -35,3 +35,34 @@ function which ($commandName) {
     }
     return $command.Source
 }
+
+function Get-ProcessRunning ($processName){
+    return (Get-Process | Where-Object ProcessName -eq "$processName") -ne $null 
+}
+
+function Reset-EmacsServer (){
+    if (Get-ProcessRunning "emacs")
+    {
+        Write-Host "Can't reset emacs server while emacs is running" -ForegroundColor Red
+        return
+    }
+    rm ~\.emacs.d\server\server*
+}
+
+# If emacs is on this machine add an alias to use emacsclient
+if (Get-Command "emacsclient" -ErrorAction SilentlyContinue)
+{
+    function e ($fileName)
+    {
+        emacsclient -n "$fileName" --alternate-editor emacs
+        if ($LASTEXITCODE -ne 0)
+        {
+            Write-Host "Looks like that didn't work. Try Reset-EmacsServer?" -ForegroundColor Yellow
+        }
+    }
+
+    if (!(Get-ProcessRunning "emacs"))
+    {
+        Reset-EmacsServer
+    }
+}
