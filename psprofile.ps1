@@ -57,7 +57,7 @@ if (Get-Command "emacsclient" -ErrorAction SilentlyContinue)
         if ($fileName -eq $null)
         {
             Write-Host "Trying to raise the window."
-            emacsclient -n -e "(raise-frame)"
+            emacsclient -n -e "(raise-frame)" --alternate-editor runemacs
         }
         else
         {
