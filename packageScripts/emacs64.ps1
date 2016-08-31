@@ -32,3 +32,6 @@ else
     git clone https://github.com/syl20bnr/spacemacs .emacs.d
     popd
 }
+
+# Add "open with emacs" to context menu
+regedit /s $PSScriptRoot/emacs64/openwemacs.reg
