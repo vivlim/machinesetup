@@ -54,7 +54,16 @@ if (Get-Command "emacsclient" -ErrorAction SilentlyContinue)
 {
     function e ($fileName)
     {
-        emacsclient -n "$fileName" --alternate-editor runemacs
+        if ($fileName -eq $null)
+        {
+            Write-Host "Trying to raise the window."
+            emacsclient -n -e "(raise-frame)" --alternate-editor runemacs
+        }
+        else
+        {
+            emacsclient -n "$fileName" --alternate-editor runemacs
+        }
+
         if ($LASTEXITCODE -ne 0)
         {
             Write-Host "Looks like that didn't work. Try Reset-EmacsServer?" -ForegroundColor Yellow
