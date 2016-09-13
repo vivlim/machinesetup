@@ -49,6 +49,10 @@ function Reset-EmacsServer (){
     rm ~\.emacs.d\server\server*
 }
 
+function Set-Title ($newTitle){
+    $host.UI.RawUI.WindowTitle = $newTitle
+}
+
 # If emacs is on this machine add an alias to use emacsclient
 if (Get-Command "emacsclient" -ErrorAction SilentlyContinue)
 {
