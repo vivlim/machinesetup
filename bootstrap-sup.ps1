@@ -14,7 +14,7 @@ if (!(Get-Command "git.exe" -ErrorAction SilentlyContinue))
 if (!(test-path $env:USERPROFILE\machinesetup\))
 {
     pushd $env:USERPROFILE
-    git clone git@github.com:mjlim/machinesetup.git
+    git clone git@github.com:vivvnlim/machinesetup.git
     [Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$env:USERPROFILE\machinesetup\", "Machine")
     popd
     refreshenv

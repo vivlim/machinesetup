@@ -1,5 +1,5 @@
 # machine State UPdater
-# 2016 mjlim
+# 2016 vivvnlim
 
 #Requires -RunAsAdministrator
 

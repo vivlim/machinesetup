@@ -21,11 +21,11 @@ else
 {
     echo "vimfiles doesn't exist. cloning from my github"
     pushd $env:USERPROFILE
-    git clone git@github.com:mjlim/vimfiles.git
+    git clone git@github.com:vivvnlim/vimfiles.git
     if (!(Test-path $env:USERPROFILE/vimfiles/))
     {
         echo "cloning failed. falling back to https clone"
-        git clone https://github.com/mjlim/vimfiles.git
+        git clone https://github.com/vivvnlim/vimfiles.git
     }
     Update-Vim-Plugins
 
