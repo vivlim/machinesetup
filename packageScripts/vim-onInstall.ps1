@@ -1,3 +1,5 @@
+refreshenv
+
 function Update-Vim-Plugins()
 {
     git submodule init
