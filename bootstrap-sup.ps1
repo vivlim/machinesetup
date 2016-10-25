@@ -11,6 +11,20 @@ if (!(Get-Command "git.exe" -ErrorAction SilentlyContinue))
     refreshenv
 }
 
+if (!(Get-Command "git.exe" -ErrorAction SilentlyContinue))
+{
+    if (Test-Path "C:\Program Files\Git\cmd\git.exe")
+    {
+        echo "Adding git to path"
+        [Environment]::SetEnvironmentVariable("Path", $Env:Path + ";C:\Program Files\Git\cmd\git.exe", "Machine")
+        refreshenv
+    }
+    else
+    {
+        echo "WARNING: Couldn't find Git in the path and also in C:\Program Files\Git\cmd"
+    }
+}
+
 if (!(test-path $env:USERPROFILE\machinesetup\))
 {
     pushd $env:USERPROFILE
