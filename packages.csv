@@ -1,7 +1,7 @@
 packagename,category,params
 pt,dev,
 emacs64,dev,
-git,dev,"""/GitAndUnixToolsOnPath"""
+git,dev,"""/GitOnlyOnPath"""
 everything,client,
 nodejs,dev,
 gitextensions,dev,
