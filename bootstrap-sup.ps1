@@ -18,6 +18,7 @@ if (!(Get-Command "git.exe" -ErrorAction SilentlyContinue))
         echo "Adding git to path"
         [Environment]::SetEnvironmentVariable("Path", $Env:Path + ";C:\Program Files\Git\cmd\", "Machine")
         refreshenv
+        $Env:Path = $Env:Path + ";C:\Program Files\Git\cmd\"
     }
     else
     {
@@ -32,6 +33,7 @@ if (!(test-path $env:USERPROFILE\machinesetup\))
     [Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$env:USERPROFILE\machinesetup\", "Machine")
     popd
     refreshenv
+    $Env:Path = $Env:Path + ";$env:USERPROFILE\machinesetup\"
 }
 else
 {
