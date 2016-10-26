@@ -30,6 +30,11 @@ if (!(test-path $env:USERPROFILE\machinesetup\))
 {
     pushd $env:USERPROFILE
     git clone git@github.com:vivvnlim/machinesetup.git
+    if (!Test-Path $env:USERPROFILE/machinesetup/))
+    {
+        echo "cloning over ssh failed, falling back to https clone."
+        git clone https://github.com/vivvnlim/machinesetup.git
+    }
     [Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$env:USERPROFILE\machinesetup\", "Machine")
     popd
     refreshenv
