@@ -70,6 +70,13 @@ function Update-Package($package)
 {
     Debug-Print "Updating package $($package.packagename)"
 
+    # If the package name ends with .ps1 then just run the script, don't bother looking for a package
+    if ($package.packagename -match '.+\.ps1$')
+    {
+        Debug-Print "$($package.packagename) ends with .ps1, so skipping chocolatey and just running the script"
+        Update-Package-Run-Script ($package.packagename -replace '\.ps1', '')
+    }
+
     $packageIsInstalled = choco list --local-only --exact --limit-output $($package.packagename) # todo: optimize by only querying for the list of installed packages one time
     $packageIsExcluded = $script:state.ExcludedPackages -contains $package.packagename
     if ($packageIsInstalled -ne $null -and $packageIsExcluded)
