@@ -4,7 +4,7 @@ function Update-Vim-Plugins()
 {
     git submodule init
     git submodule update
-    nvim +PluginInstall +qall
+    nvim +PlugInstall +qall
 }
 
 echo "Setting up vim config."
