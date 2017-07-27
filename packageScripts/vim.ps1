@@ -1,4 +1,4 @@
-[Environment]::SetEnvironmentVariable("GIT_EDITOR", "gvim", "Machine")
+﻿[Environment]::SetEnvironmentVariable("GIT_EDITOR", "gvim", "Machine")
 
 refreshenv
 
