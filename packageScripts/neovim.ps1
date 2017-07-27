@@ -9,7 +9,7 @@ function Update-Vim-Plugins()
 
 echo "Setting up vim config."
 
-if (Test-path $env:USERPROFILE/AppData/Local/nvim/)
+if (Test-path $env:USERPROFILE/AppData/Local/nvim/init.vim)
 {
     echo "vimfiles exists. updating it..."
     pushd $env:USERPROFILE/AppData/Local/nvim
@@ -22,10 +22,11 @@ if (Test-path $env:USERPROFILE/AppData/Local/nvim/)
 else
 {
     echo "vimfiles doesn't exist. cloning from my github"
-    pushd $env:USERPROFILE/AppData/Local/nvim
+    pushd $env:USERPROFILE/AppData/Local/
     git clone git@github.com:vivvnlim/vimfiles.git nvim
+    cd nvim
     git checkout master-neovim
-    if (!(Test-path $env:USERPROFILE/AppData/Local/nvim/))
+    if (!(Test-path $env:USERPROFILE/AppData/Local/nvim/init.vim))
     {
         echo "cloning failed. falling back to https clone"
         git clone https://github.com/vivvnlim/vimfiles.git nvim
