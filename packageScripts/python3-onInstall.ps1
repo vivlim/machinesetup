@@ -1,0 +1,2 @@
+refreshenv
+pip install neovim

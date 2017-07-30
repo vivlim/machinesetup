@@ -30,6 +30,8 @@ else
     if (!(Test-path $env:USERPROFILE/AppData/Local/nvim/init.vim))
     {
         echo "cloning failed. falling back to https clone"
+        popd
+        pushd $env:USERPROFILE/AppData/Local/
         git clone https://github.com/vivvnlim/vimfiles.git nvim
         git checkout master-neovim
     }
