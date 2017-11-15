@@ -23,7 +23,7 @@ if ($host.Name -eq "ConsoleHost"){
           $ps::Insert($choices -join " ")
       }
 
-    echo "Profile loaded."
+    #echo "Profile loaded."
 }
 
 function which ($commandName) {
