@@ -6,8 +6,9 @@ if ($host.Name -eq "ConsoleHost"){
     } catch [Exception] {
         # Otherwise, it can be installed from the PowerShell Gallery:
         # https://github.com/lzybkr/PSReadLine#installation
-        Import-Module PSReadLine
-        $ps = [PSConsoleUtilities.PSConsoleReadLine]
+        #Import-Module PSReadLine
+        #$ps = [PSConsoleUtilities.PSConsoleReadLine]
+        exit
     }
 
     Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
