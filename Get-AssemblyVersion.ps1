@@ -13,10 +13,13 @@ Get-ChildItem $assemblies |
             $_ | Add-Member NoteProperty AssemblyVersion (
                 [Reflection.AssemblyName]::GetAssemblyName($_.FullName).Version
             )
+            $_ | Add-Member NoteProperty AssemblyFullName (
+                [Reflection.AssemblyName]::GetAssemblyName($_.FullName).FullName
+            )
         } catch {}
         $_
     } |
-    Select-Object Name,FileVersion,AssemblyVersion | Write-Host
+    Select-Object Name,FileVersion,AssemblyVersion,AssemblyFullName| Format-List
 
 if ($wait) {
     Read-Host
