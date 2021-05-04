@@ -11,6 +11,15 @@ if ($host.Name -eq "ConsoleHost"){
         exit
     }
 
+    try {
+        Import-Module ZLocation
+        Write-Host -Foreground Green "`n[ZLocation] knows about $((Get-ZLocation).Keys.Count) locations.`n"
+    } catch [Exception] {
+        Install-Module ZLocation -Scope CurrentUser
+        Import-Module ZLocation
+        Write-Host "ZLocation installed. You may need to edit $Profile to init *after* starship if present"
+    }
+
     $version = Get-Module PSReadLine | Select-Object -Property Version
 
     if ("2.0.9" -gt $version) # min 2.1.0. just pick arbitrary lower but close version number and hope it's ok
