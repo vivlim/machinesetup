@@ -11,9 +11,21 @@ if ($host.Name -eq "ConsoleHost"){
         exit
     }
 
+    $version = Get-Module PSReadLine | Select-Object -Property Version
+
+    if ("2.0.9" -gt $version) # min 2.1.0. just pick arbitrary lower but close version number and hope it's ok
+    {
+        Set-PSReadLineOption -PredictionSource History
+        Set-PSReadLineKeyHandler -Chord "Ctrl+f" -Function ForwardWord
+    }
+    else
+    {
+        echo "consider updating PSReadLine: Install-Module PSReadLine -RequiredVersion 2.1.0"
+    }
+
     Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
     Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
-    Set-PSReadlineKeyHandler -Key Tab -Function Complete
+    #Set-PSReadlineKeyHandler -Key Tab -Function Complete
 
     Set-PSReadlineKeyHandler `
       -Chord 'Ctrl+s' `
