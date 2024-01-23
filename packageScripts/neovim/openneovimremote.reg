@@ -1,0 +1,13 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell]
+[HKEY_CLASSES_ROOT\*\shell\openneovimremote]
+@="&Edit with neovim-remote"
+"icon"="C:\\tools\\neovide.exe"
+[HKEY_CLASSES_ROOT\*\shell\openneovimremote\command]
+@="C:\\Users\\vivlim\\Anaconda3\\Scripts\\nvr.exe --servername \\\\.\\pipe\\nvim-neovide -o \"%1\""
+[HKEY_CLASSES_ROOT\Directory\shell\openneovimremote]
+@="Open &with neovim-remote"
+"icon"="C:\\tools\\neovide.exe"
+[HKEY_CLASSES_ROOT\Directory\shell\openneovimremote\command]
+@="C:\\Users\\vivlim\\Anaconda3\\Scripts\\nvr.exe --servername \\\\.\\pipe\\nvim-neovide -o \"%1\""
