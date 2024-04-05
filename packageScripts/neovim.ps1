@@ -1,13 +1,5 @@
 ﻿refreshenv
 
-function Update-Vim-Plugins()
-{
-    git submodule init
-    git submodule update
-    nvim +PlugInstall +qall
-    nvim +UpdateRemotePlugins +qall
-}
-
 echo "Setting up vim config."
 
 if (Test-path $env:USERPROFILE/AppData/Local/nvim/init.vim)
@@ -15,8 +7,6 @@ if (Test-path $env:USERPROFILE/AppData/Local/nvim/init.vim)
     echo "vimfiles exists. updating it..."
     pushd $env:USERPROFILE/AppData/Local/nvim
     git pull origin neovim
-
-    Update-Vim-Plugins
 
     popd
 }

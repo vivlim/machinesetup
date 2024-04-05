@@ -55,3 +55,7 @@ function Get-ProcessRunning ($processName){
 function Set-Title ($newTitle){
     $host.UI.RawUI.WindowTitle = $newTitle
 }
+
+
+# also bind ctrl+n to cancel lines, workaround for https://github.com/neovim/neovim/issues/13350
+Set-PSReadLineKeyHandler -Chord Ctrl+n -Function CopyOrCancelLine
