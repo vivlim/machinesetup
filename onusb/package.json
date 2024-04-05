@@ -1,0 +1,14 @@
+{
+  "name": "onusb",
+  "version": "1.0.0",
+  "description": "do things when specific usb devices are plugged in",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "usb": "^2.12.1"
+  }
+}
