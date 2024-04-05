@@ -1,4 +1,4 @@
-if ($host.Name -eq "ConsoleHost"){
+if ($host.Name -eq "ConsoleHost" -and $false){
     $ps = $null
     try {
         # On Windows 10, PSReadLine ships with PowerShell
@@ -11,29 +11,29 @@ if ($host.Name -eq "ConsoleHost"){
         exit
     }
 
-    try {
-        Import-Module ZLocation
-        Write-Host -Foreground Green "`n[ZLocation] knows about $((Get-ZLocation).Keys.Count) locations.`n"
-    } catch [Exception] {
-        Install-Module ZLocation -Scope CurrentUser
-        Import-Module ZLocation
-        Write-Host "ZLocation installed. You may need to edit $Profile to init *after* starship if present"
-    }
+    # try {
+    #     Import-Module ZLocation
+    #     Write-Host -Foreground Green "`n[ZLocation] knows about $((Get-ZLocation).Keys.Count) locations.`n"
+    # } catch [Exception] {
+    #     Install-Module ZLocation -Scope CurrentUser
+    #     Import-Module ZLocation
+    #     Write-Host "ZLocation installed. You may need to edit $Profile to init *after* starship if present"
+    # }
 
     $version = Get-Module PSReadLine | Select-Object -Property Version
 
     Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
     Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
-    Set-PSReadlineKeyHandler -Key Tab -Function Complete
+    #Set-PSReadlineKeyHandler -Key Tab -Function Complete
 
-    Set-PSReadlineKeyHandler `
-      -Chord 'Ctrl+s' `
-      -BriefDescription "InsertHeatseekerPathInCommandLine" `
-      -LongDescription "Run Heatseeker in the PWD, appending any selected paths to the current command" `
-      -ScriptBlock {
-          $choices = $(Get-ChildItem -Name -Attributes !D -Recurse | hs)
-          $ps::Insert($choices -join " ")
-      }
+    # Set-PSReadlineKeyHandler `
+    #   -Chord 'Ctrl+s' `
+    #   -BriefDescription "InsertHeatseekerPathInCommandLine" `
+    #   -LongDescription "Run Heatseeker in the PWD, appending any selected paths to the current command" `
+    #   -ScriptBlock {
+    #       $choices = $(Get-ChildItem -Name -Attributes !D -Recurse | hs)
+    #       $ps::Insert($choices -join " ")
+    #   }
 
     #echo "Profile loaded."
 }
