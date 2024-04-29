@@ -1,8 +1,10 @@
 # machine State UPdater
 # 2016 vivvnlim
 
+#Requires -RunAsAdministrator
+
 param (
-    [ValidateSet("UpdateSelf", "UpdateScoop", "SetExcluded", "UpdateSelfAndScoop")] [String] $action="UpdateSelfAndScoop",
+    [ValidateSet("UpdateSelf", "UpdateChoco", "SetExcluded", "UpdateSelfAndChoco")] [String] $action="UpdateSelfAndChoco",
     [switch] $verbose,
     [switch] $updateInstalledPackages
 )
@@ -71,30 +73,24 @@ function Update-Package($package)
     # If the package name ends with .ps1 then just run the script, don't bother looking for a package
     if ($package.packagename -match '\.ps1')
     {
-        Debug-Print "$($package.packagename) ends with .ps1, so skipping scoop and just running the script"
+        Debug-Print "$($package.packagename) ends with .ps1, so skipping chocolatey and just running the script"
         # replace packagename
         $package.packagename = ($package.packagename -replace '\.ps1', '')
         Update-Package-Run-Script $package
         return
     }
 
-    $packageIsInstalled = scoop list $($package.packagename)
+    $packageIsInstalled = choco list --local-only --exact --limit-output $($package.packagename) # todo: optimize by only querying for the list of installed packages one time
     $packageIsExcluded = $script:state.ExcludedPackages -contains $package.packagename
     if ($packageIsInstalled -ne $null -and $packageIsExcluded)
     {
         Debug-Print "Need to remove package $($package.packagename) since it is installed, but on the exclusion list."
-        scoop uninstall $package.packagename
+        choco uninstall -y $package.packagename
     }
-    if (($packageIsInstalled -eq $null) -and !$packageIsExcluded)
+    if (($packageIsInstalled -eq $null -or $updateInstalledPackages) -and !$packageIsExcluded)
     {
-        Debug-Print "Package $($package.packagename) will be installed"
-        scoop install $package.packagename
-        Update-Package-Run-Script $package "-onInstall"
-    }
-    elseif (($packageIsInstalled -ne $null -and $updateInstalledPackages) -and !$packageIsExcluded)
-    {
-        Debug-Print "Package $($package.packagename) will be upgraded"
-        scoop update $package.packagename
+        Debug-Print "Package $($package.packagename) will be upgraded/installed"
+        choco upgrade -y $package.packagename --allowEmptyChecksums --limit-output
         Update-Package-Run-Script $package "-onInstall"
     }
 
@@ -117,16 +113,16 @@ Load-Packages
 
 switch($action)
 {
-    "UpdateSelfAndScoop"
+    "UpdateSelfAndChoco"
     {
         Invoke-Expression "$PSScriptRoot\sup.ps1 UpdateSelf"
         if ($LASTEXITCODE -eq 0)
         {
-            Invoke-Expression "$PSScriptRoot\sup.ps1 UpdateScoop"
+            Invoke-Expression "$PSScriptRoot\sup.ps1 UpdateChoco"
         }
         else
         {
-            echo "Not proceeding with scoop update since UpdateSelf failed."
+            echo "Not proceeding with choco update since UpdateSelf failed."
         }
     }
     "UpdateSelf"
@@ -144,7 +140,7 @@ switch($action)
         }
     }
 
-    "UpdateScoop"
+    "UpdateChoco"
     {
         ForEach ($package in $script:packages)
         {

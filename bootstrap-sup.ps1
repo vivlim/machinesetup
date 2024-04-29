@@ -1,15 +1,14 @@
-if (!(Get-Command "scoop" -ErrorAction SilentlyContinue))
+if (!(Get-Command "choco.exe" -ErrorAction SilentlyContinue))
 {
-    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+    echo "Installing Chocolatey"
+    iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
     refreshenv
 }
 
 if (!(Get-Command "git.exe" -ErrorAction SilentlyContinue))
 {
-    echo "no git"
-    exit 1
-    #choco upgrade git -y -params '"/GitAndUnixToolsOnPath"'
-    #refreshenv
+    choco upgrade git -y -params '"/GitAndUnixToolsOnPath"'
+    refreshenv
 }
 
 if (!(Get-Command "git.exe" -ErrorAction SilentlyContinue))
